@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Electron Excel App</title>
+  </head>
+  <body>
+    <button onclick="window.api.selectInputFile()">选择原始 Excel 文件</button>
+    <script>
+      // 在渲染进程中与主进程通信
+      const { contextBridge, ipcRenderer } = require('electron');
+      contextBridge.exposeInMainWorld('api', {
+        selectInputFile: () => ipcRenderer.invoke('selectInputFile'),
+      });
+    </script>
+  </body>
+</html>
